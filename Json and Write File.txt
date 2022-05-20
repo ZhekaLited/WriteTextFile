@@ -1,0 +1,181 @@
+
+Write text file
+
+
+package com.company;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class WriteTextFile {
+    public static void main(String[] args) {
+        String fileName = "src/com/company/Data/data.txt";
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String s = "Строка";
+        int i = 12;
+
+        try {
+            fw.append(s);
+
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+Read Text File 
+
+package com.company;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ReadTextFile {
+    public static void main(String[] args) {
+        String fileName = "src/com/company/Data/data.txt";
+        StringBuilder sb = new StringBuilder();
+        try(FileReader fr = new FileReader(fileName)) {
+        //    System.out.println(fr.getEncoding());
+            int i;
+            while ((i=fr.read())!=-1)
+                sb.append((char)i);
+
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(sb);
+
+    }
+}
+
+Read text file 
+
+package com.company;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ReadTextFile {
+    public static void main(String[] args) {
+        String fileName = "src/com/company/Data/data.txt";
+        StringBuilder sb = new StringBuilder();
+        try(FileReader fr = new FileReader(fileName)) {
+        //    System.out.println(fr.getEncoding());
+            int i;
+            while ((i=fr.read())!=-1)
+                sb.append((char)i);
+
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(sb);
+
+    }
+}
+
+
+Json Write File
+
+package com.company;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class WriteJsonFile {
+    public static void main(String[] args) {
+        String fileName = "src/com/company/Data/data.json";
+        FileWriter fw = null;
+        JSONArray persons = new JSONArray();
+        JSONObject obj = new JSONObject();
+        obj.put("persons", persons);
+
+        JSONObject person1 = new JSONObject();
+        person1.put("id",1);
+        person1.put("name", "Jhon");
+        JSONArray emails = new JSONArray();
+        emails.put("emails: Jhon@mail.ru");
+        emails.put("Jhon@mail.ru");
+        person1.put("emails",emails);
+        persons.put(person1);
+
+        JSONObject person2 = new JSONObject();
+        person2.put("id",2);
+        person2.put("name", "Alex");
+        JSONArray emails2 = new JSONArray();
+        emails.put("emails: Alex@mail.ru");
+        emails.put("Alex@mail.ru");
+        person2.put("emails",emails2);
+
+        persons.put(person2);
+
+
+        try {
+            fw = new FileWriter(fileName);
+            fw.write(obj.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+            try {
+                fw.flush();
+                fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+Read Json File
+
+package com.company;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+public class ReadJsonFile {
+    public static void main(String[] args) {
+        String fileName = "src/com/company/Data/data.json";
+        {
+            try {
+                FileReader fr = new FileReader(fileName);
+                JSONTokener token = new JSONTokener(fr);
+                JSONObject obj = new JSONObject(token);
+              //  System.out.println(obj.toString());
+                JSONArray persons = obj.getJSONArray("persons");
+                for (int i = 0; i<persons.length(); i++) {
+                    JSONObject person = persons.getJSONObject(i);
+                    int id = person.getInt("id");
+                    String name = person.getString("name");
+                    System.out.println(id + " " + name);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+
+
+

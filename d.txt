@@ -1,0 +1,64 @@
+
+Write text file
+
+
+package com.company;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class WriteTextFile {
+    public static void main(String[] args) {
+        String fileName = "src/com/company/Data/data.txt";
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String s = "Строка";
+        int i = 12;
+
+        try {
+            fw.append(s);
+
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+Read Text File 
+
+package com.company;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ReadTextFile {
+    public static void main(String[] args) {
+        String fileName = "src/com/company/Data/data.txt";
+        StringBuilder sb = new StringBuilder();
+        try(FileReader fr = new FileReader(fileName)) {
+        //    System.out.println(fr.getEncoding());
+            int i;
+            while ((i=fr.read())!=-1)
+                sb.append((char)i);
+
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(sb);
+
+    }
+}
+
+
+
+
+
